@@ -5,6 +5,7 @@ import {
   registerRequest,
   loginRequest,
   vertyTokenRequet,
+  logoutRequest,
 } from "../api/auth.js";
 //importo cookies desde js-cookie
 import Cookies from "js-cookie";
@@ -68,9 +69,19 @@ export const AuthProvider = ({ children }) => {
   };
 
   //creo funcion asincrona para deslogearme
-  const logout = () => {
+  const logout = async () => {
     //elimino el token
     Cookies.remove("token");
+    //Logout para el back
+    try {
+      await logoutRequest();
+      //le digo que no esta autenticado
+      setIsAuthenticated(false);
+      //seteo el usuario a null
+      setUser(null);
+    } catch (error) {
+      setErrors([error.response.data.message]);
+    }
     //le digo que no esta autenticado
     setIsAuthenticated(false);
     //seteo el usuario a null
