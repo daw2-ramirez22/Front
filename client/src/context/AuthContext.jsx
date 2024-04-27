@@ -74,6 +74,7 @@ export const AuthProvider = ({ children }) => {
     Cookies.remove("token");
     //Logout para el back
     try {
+      //llamo a la funcion para borrar la cookie del back
       await logoutRequest();
       //le digo que no esta autenticado
       setIsAuthenticated(false);
