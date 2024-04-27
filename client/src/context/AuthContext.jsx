@@ -70,11 +70,7 @@ export const AuthProvider = ({ children }) => {
 
   //creo funcion asincrona para deslogearme
   const logout = () => {
-    //elimino el token
-    Cookies.remove("token");
-    //Logout para el back
     try {
-      //Logout para el back
       logoutRequest();
       //elimino el token
       Cookies.remove("token");
@@ -83,12 +79,9 @@ export const AuthProvider = ({ children }) => {
       //seteo el usuario a null
       setUser(null);
     } catch (error) {
+      //seteo los errores
       setErrors([error.response.data.message]);
     }
-    //le digo que no esta autenticado
-    setIsAuthenticated(false);
-    //seteo el usuario a null
-    setUser(null);
   };
 
   //creo effecto para el contol del mensaje de errores
@@ -112,7 +105,7 @@ export const AuthProvider = ({ children }) => {
       //cojo la cookie y la guardo en una variable
       try {
         //si hay un token verificalo enviadolo al backend para que no se pueda introducir manualmente en el navegador
-        const res = await vertyTokenRequet();
+        const res = await vertyTokenRequet(cookies.token);
         //si no me responde ningun dato o no cuadran ponlo en falso y devuelvelo
         if (!res.data) {
           //seteo el loading a false para que no se quede cargando
