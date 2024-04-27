@@ -6,4 +6,5 @@ const instance = axios.create({
     baseURL: "http://back-c19j.onrender.com/api",
     withCredentials: true
 })
+//exportar instance
 export default instance
