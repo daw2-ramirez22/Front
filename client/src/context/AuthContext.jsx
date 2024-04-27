@@ -69,13 +69,15 @@ export const AuthProvider = ({ children }) => {
   };
 
   //creo funcion asincrona para deslogearme
-  const logout =  () => {
+  const logout = () => {
     //elimino el token
     Cookies.remove("token");
     //Logout para el back
     try {
-      //llamo a la funcion para borrar la cookie del back
-       logoutRequest();
+      //Logout para el back
+      logoutRequest();
+      //elimino el token
+      Cookies.remove("token");
       //le digo que no esta autenticado
       setIsAuthenticated(false);
       //seteo el usuario a null
