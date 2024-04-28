@@ -105,7 +105,7 @@ export const AuthProvider = ({ children }) => {
       //cojo la cookie y la guardo en una variable
       try {
         //si hay un token verificalo enviadolo al backend para que no se pueda introducir manualmente en el navegador
-        const res = await vertyTokenRequet(cookies.token);
+        const res = await vertyTokenRequet(Cookies.token);
         //si no me responde ningun dato o no cuadran ponlo en falso y devuelvelo
         if (!res.data) {
           //seteo el loading a false para que no se quede cargando
