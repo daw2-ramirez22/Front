@@ -68,22 +68,6 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  //creo funcion asincrona para deslogearme
-  const logout = () => {
-    try {
-      logoutRequest();
-      //elimino el token
-      Cookies.remove(Cookies.token);
-      //le digo que no esta autenticado
-      setIsAuthenticated(false);
-      //seteo el usuario a null
-      setUser(null);
-    } catch (error) {
-      //seteo los errores
-      setErrors([error.response.data.message]);
-    }
-  };
-
   //creo effecto para el contol del mensaje de errores
   useEffect(() => {
     //si ha salido el error
@@ -100,39 +84,49 @@ export const AuthProvider = ({ children }) => {
 
   //creo un effect para logear y chekear la cookie
   useEffect(() => {
-    //funcion asincrona para checkear el login
-    async function checkLogin() {
-      //cojo la cookie y la guardo en una variable
+    const checkLogin = async () => {
+      //guardo las cookies en variable
+      const cookies = Cookies.get();
+      //si no hay token pongo en false
+      if (!cookies.token) {
+        setIsAuthenticated(false);
+        setLoading(false);
+        return;
+      }
+      //si hay token lo mando a autenticar 
       try {
-        //si hay un token verificalo enviadolo al backend para que no se pueda introducir manualmente en el navegador
-        const res = await vertyTokenRequet(Cookies.token);
-        //si no me responde ningun dato o no cuadran ponlo en falso y devuelvelo
-        if (!res.data) {
-          //seteo el loading a false para que no se quede cargando
-          setLoading(false);
-          //le digo que no esta autenticado
-          setIsAuthenticated(false);
-          //devuelvo los estados
-          return;
-        }
-        //si me devuelve datos es que si que esta el usuario entonces lo pongo en true y lo pongo de cargar
+        //enviao el token a autenticar 
+        const res = await vertyTokenRequet(cookies.token);
+        //si el token no coincide 
+        if (!res.data) return setIsAuthenticated(false);
+        //si es corecto
         setIsAuthenticated(true);
-        //seteo al usuario los datos
         setUser(res.data);
-        //seteo el loading a false para que no se quede cargando
         setLoading(false);
       } catch (error) {
-        //si me dio un error lo pongo en autenticado en false usuario null y digo que termino de cargar uu no hay nada
+        //si hay error
         setIsAuthenticated(false);
-        //le digo que no hay usuario
-        setUser(null);
-        //seteo el loading a false para que no se quede cargando
         setLoading(false);
       }
-    }
-    //ejecuto la funcion de logn
+    };
     checkLogin();
   }, []);
+
+  //creo funcion asincrona para deslogearme
+  const logout = () => {
+    try {
+      //elimino el token
+      Cookies.remove("token");
+      //le digo que no esta autenticado
+      setIsAuthenticated(false);
+      //seteo el usuario a null
+      setUser(null);
+      logoutRequest();
+    } catch (error) {
+      //seteo los errores
+      setErrors([error.response.data.message]);
+    }
+  };
 
   //devuelvo el contexto con las funciones que he creado en esta pagina y propiedades
   return (

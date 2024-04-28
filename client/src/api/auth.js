@@ -8,4 +8,6 @@ export const registerRequest = (user) => {
 export const loginRequest = (user) => axios.post(`/login`, user)
 export const logoutRequest = () => axios.post(`/logout`)
 
+
+
 export const vertyTokenRequet = () => axios.get(`/verify`)

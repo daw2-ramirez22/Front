@@ -11,7 +11,6 @@ function TasksPage() {
   useEffect(() => {
     const interval = setInterval(() => {
       getTasks();
-      console.log("pido tareas")
     }, 1000); // 1000 milisegundos = 1 segundos
     return () => clearInterval(interval);
   }, []);
