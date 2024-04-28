@@ -73,7 +73,7 @@ export const AuthProvider = ({ children }) => {
     try {
       logoutRequest();
       //elimino el token
-      Cookies.remove("token");
+      Cookies.remove(Cookies.token);
       //le digo que no esta autenticado
       setIsAuthenticated(false);
       //seteo el usuario a null
