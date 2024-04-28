@@ -24,6 +24,7 @@ function TaskFormPage() {
       if(params.id){
         //muestro la tarea filtrando por id en caso que le haya dado al editar
         const task = await getTask(params.id)
+
           //decimos que valores y donde los queremos guardar
           setValue('title', task.title)
           setValue('description', task.description)
