@@ -85,17 +85,12 @@ export const AuthProvider = ({ children }) => {
   //creo un effect para logear y chekear la cookie
   useEffect(() => {
     const checkLogin = async () => {
-      //si no hay token pongo en false
-      if (!Cookies.token) {
-        setIsAuthenticated(false);
-        setLoading(false);
-        return;
-      }
+ 
       //si hay token lo mando a autenticar 
       try {
         //enviao el token a autenticar 
-        const res = await vertyTokenRequet(Cookies.token);
-        //si el token no coincide 
+        const res = await vertyTokenRequet();
+        //si el token no coincide token
         if (!res.data) return setIsAuthenticated(false);
         //si es corecto
         setIsAuthenticated(true);
