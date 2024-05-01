@@ -111,15 +111,17 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   //creo funcion asincrona para deslogearme
-  const logout = () => {
+  const logout = async() => {
     try {
       //elimino el token
       Cookies.remove("token");
+      //llasmo logout
+      await logoutRequest();
       //le digo que no esta autenticado
       setIsAuthenticated(false);
       //seteo el usuario a null
       setUser(null);
-      logoutRequest();
+
     } catch (error) {
       //seteo los errores
       setErrors([error.response.data.message]);
