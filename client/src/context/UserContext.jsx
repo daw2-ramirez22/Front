@@ -38,9 +38,6 @@ export function UserProvider({ children }) {
     try {
       //peticion al back
       const res = await deleteUserRequest(id);
-      console.log(res)
-      //si falla decuelvo el estado 204
-      console.log(id)
       //devuelvo el nuevoe stado de los usuarios
       if (res.status === 204) setAllUsers((prevAllUsers) => prevAllUsers.filter((user) => user._id !== id));
 

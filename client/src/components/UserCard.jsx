@@ -14,7 +14,8 @@ function UserCard({ users }) {
         <h1 className="text-2xl font-bold">Username : {users.username}</h1>
       </header>
       <p className="text-slate-300 my-2">email :{users.email}</p>
-
+      <p className="text-slate-300 my-2">Fecha de Creación: {users.createdAt}</p>
+    
       <div className="flex gap-x-2 pt-2 items-center">
         <button
           className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md"

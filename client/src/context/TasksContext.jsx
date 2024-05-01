@@ -55,9 +55,7 @@ export function TaskProvider({ children }) {
       try {
          //peticion al back
           const res = await deleteTaskRequest(id)
-          //si falla decuelvo el estado 204
-          console.log(res.status)
-          console.log(alltasks, 'ahora')
+  
           //devuelvo el nuevo estado de las tareas
           if (res.status === 204) setAllTasks((prevAlltask) => prevAlltask.filter((task) => task._id !== id));
           if (res.status === 204) setTasks((prevAlltask) => prevAlltask.filter((task) => task._id !== id));
@@ -88,7 +86,6 @@ export function TaskProvider({ children }) {
         //peticion al back
         const res = await getAllTaskRequest();
         //devuelvo laos datos de la tarea
-        console.log(res.data)
         setAllTasks(res.data);
         return res.data;
       } catch (error) {
@@ -101,7 +98,6 @@ export function TaskProvider({ children }) {
       //peticion al back
       const res = await getAllUsersRequest();
       //devuelvo laos datos de la tarea
-      console.log(res.data)
       setAllUsers(res.data);
       return res.data;
     } catch (error) {
