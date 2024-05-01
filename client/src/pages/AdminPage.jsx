@@ -10,7 +10,7 @@ import UserCard from "../components/UserCard";
 function AdminPage() {
   //uso mi funcion auth y le paso el estado de carga y el metodo de isauth
   const { loading, isAuthenticated, user } = useAuth();
-  const { getAllTasks, alltasks, triggerUpdate } = useTasks();
+  const { getAllTasks, alltasks } = useTasks();
 
   const {getAllUsers,users, setAllUsers } = useUser()
 
@@ -23,7 +23,7 @@ function AdminPage() {
     }
     getAllTasks();
     getAllUsers();
-  }, [triggerUpdate]);
+  }, []);
   
   return (
     <div>

@@ -23,6 +23,8 @@ function LoginPage() {
     //utilizo guardo en esta variale lo que se tiene que ejecutar cuando guarde "la variable esta en el onSubmit del formulario"
     const onSubmit = handleSubmit((data) => {
         //le paso los valores a la funcion singup para que se logee
+        console.log("estamos logeando")
+        console.log("data")
         signin(data)
     })
     // effect para que si estoy autenticado para que si me logeo me envie a mis tareas 

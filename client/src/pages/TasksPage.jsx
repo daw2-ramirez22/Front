@@ -4,18 +4,18 @@ import { useTasks } from "../context/TasksContext";
 import TaskCard from "../components/TaskCard";
 import imagencole from "../assets/img/imagencole.png";
 import { useAuth } from "../context/AuthContext";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import AdminPage from "./AdminPage";
 //funcion para la pagina de tareas
 function TasksPage() {
   //importo de useTask el getTask y la tareas
   const {user} = useAuth();
   const navigate = useNavigate()
-  const { getTasks, tasks, triggerUpdate} = useTasks();
+  const { getTasks, tasks} = useTasks();
   //si tiene tareas las mostrara con el getTask()
   useEffect(() => {
       getTasks();
-  }, [triggerUpdate]);
+  }, []);
 
   //si esta vacio porque no tengo tareas mandara esto
   if (tasks.length == 0)
