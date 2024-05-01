@@ -12,6 +12,7 @@ import HomePage from "./pages/HomePage.jsx";
 import ProtectedRoute from "./ProtectedRoute.jsx";
 import Navbar from "./components/Navbar.jsx";
 import AdminPage from "./pages/AdminPage.jsx";
+import { UserProvider } from "./context/UserContext.jsx";
 
 //creo la funcion App para que cree las rutas desde el front que he creado en las paginas dentro de client/pages
 function App() {
@@ -19,23 +20,25 @@ function App() {
     return (
        <AuthProvider>
             <TaskProvider>
-                <BrowserRouter>
-                    <main className="container mx-auto px-10">
-                        <Navbar/>
-                            <Routes>
-                                <Route path="/" element={<HomePage></HomePage>}></Route>
-                                <Route path="/login" element={<LoginPage></LoginPage>}></Route>
-                                <Route path="/register" element={<RegisterPage></RegisterPage>}></Route>  
-                                <Route element={<ProtectedRoute></ProtectedRoute>}>
-                                    <Route path="/tasks" element={<TasksPage></TasksPage>}></Route>
-                                    <Route path="/add-task" element={<TaskFormPage></TaskFormPage>}></Route>
-                                    <Route path="/task/:id" element={<TaskFormPage></TaskFormPage>}></Route>
-                                    <Route path="/profile" element={<ProfilePage></ProfilePage>}></Route>
-                                    <Route path="/admin" element={<AdminPage></AdminPage>}></Route>
-                                </Route>
-                            </Routes>
-                    </main>
-                </BrowserRouter>
+                <UserProvider>
+                    <BrowserRouter>
+                        <main className="container mx-auto px-10">
+                            <Navbar/>
+                                <Routes>
+                                    <Route path="/" element={<HomePage></HomePage>}></Route>
+                                    <Route path="/login" element={<LoginPage></LoginPage>}></Route>
+                                    <Route path="/register" element={<RegisterPage></RegisterPage>}></Route>  
+                                    <Route element={<ProtectedRoute></ProtectedRoute>}>
+                                        <Route path="/tasks" element={<TasksPage></TasksPage>}></Route>
+                                        <Route path="/add-task" element={<TaskFormPage></TaskFormPage>}></Route>
+                                        <Route path="/task/:id" element={<TaskFormPage></TaskFormPage>}></Route>
+                                        <Route path="/profile" element={<ProfilePage></ProfilePage>}></Route>
+                                        <Route path="/admin" element={<AdminPage></AdminPage>}></Route>
+                                    </Route>
+                                </Routes>
+                        </main>
+                    </BrowserRouter>
+                </UserProvider>
             </TaskProvider>
        </AuthProvider>
     )
