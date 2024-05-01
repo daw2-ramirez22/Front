@@ -6,14 +6,11 @@ import imagencole from "../assets/img/imagencole.png";
 //funcion para la pagina de tareas
 function TasksPage() {
   //importo de useTask el getTask y la tareas
-  const { getTasks, tasks } = useTasks();
+  const { getTasks, tasks, triggerUpdate } = useTasks();
   //si tiene tareas las mostrara con el getTask()
   useEffect(() => {
-    const interval = setInterval(() => {
       getTasks();
-    }, 1000); // 1000 milisegundos = 1 segundos
-    return () => clearInterval(interval);
-  }, []);
+  }, [triggerUpdate]);
   //si esta vacio porque no tengo tareas mandara esto
   if (tasks.length == 0)
     return (

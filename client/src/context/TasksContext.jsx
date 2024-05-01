@@ -19,6 +19,7 @@ export function TaskProvider({ children }) {
 
   const [tasks, setTasks] = useState([]);
   //creo funcon para pedir tareas
+  const [triggerUpdate, setTriggerUpdate] = useState(false);
   const getTasks = async () => {
       
       //pericion al baxk
@@ -33,6 +34,7 @@ export function TaskProvider({ children }) {
       try {
           //peticion al baxk
           const res = await createTaskRequest(task);
+          setTriggerUpdate(!triggerUpdate);
       } catch (error) {
           //muestro error en caso que tenga
           console.log(error);
@@ -45,6 +47,7 @@ export function TaskProvider({ children }) {
           const res = await deleteTaskRequest(id)
           //si falla decuelvo el estado 204
           if (res.status === 204) setTasks(tasks.filter((task) => task._id !== id));
+          setTriggerUpdate(!triggerUpdate);
       } catch (error) {
           //muestro error en caso que tenga
           console.log(error);
@@ -67,6 +70,7 @@ export function TaskProvider({ children }) {
       try {
         //peticion al back
         await updateTaskRequest(id, task);
+        setTriggerUpdate(!triggerUpdate);
       } catch (error) {
         //muestro error en caso que tenga
         console.error(error);
@@ -82,7 +86,8 @@ export function TaskProvider({ children }) {
             getTasks,
             deleteTask,
             getTask,
-            updateTask
+            updateTask,
+            triggerUpdate
         }}
     >
         {children}
