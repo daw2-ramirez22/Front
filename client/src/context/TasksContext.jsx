@@ -43,6 +43,8 @@ export function TaskProvider({ children }) {
           //peticion al baxk
           const res = await createTaskRequest(task);
           setTasks((prevAlltask) => [...prevAlltask, res.data]);
+          setAllTasks((prevAlltask) => [...prevAlltask, res.data]);
+
       } catch (error) {
           //muestro error en caso que tenga
           console.log(error);
