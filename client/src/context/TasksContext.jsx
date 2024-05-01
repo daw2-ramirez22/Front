@@ -19,16 +19,18 @@ export const useTasks = () => {
 //creo y exporto el provider para las tareas
 export function TaskProvider({ children }) {
 
+
+  // tareas de un usuario en cocreto
   const [tasks, setTasks] = useState([]);
+  // Todas las tareas para el admin
   const [alltasks, setAllTasks] = useState([]);
   const [users, setAllUsers] = useState([]);
 
   
 
   //creo funcon para pedir tareas
-  const [triggerUpdate, setTriggerUpdate] = useState(false);
+  // const [triggerUpdate, setTriggerUpdate] = useState(false);
   const getTasks = async () => {
-      
       //pericion al baxk
       const res = await getTasksRequest();
       //paso como parametros a set tasks los datos
@@ -41,7 +43,7 @@ export function TaskProvider({ children }) {
       try {
           //peticion al baxk
           const res = await createTaskRequest(task);
-          setTriggerUpdate(!triggerUpdate);
+          // setTriggerUpdate(!triggerUpdate);
       } catch (error) {
           //muestro error en caso que tenga
           console.log(error);
@@ -60,7 +62,8 @@ export function TaskProvider({ children }) {
           console.log(error);
       } 
   }
-  //creo funcion para pedir tarea
+  
+  // creo funcion para pedir tarea ✅
   const getTask = async (id) => {
       try {
         //peticion al back
@@ -72,12 +75,14 @@ export function TaskProvider({ children }) {
         console.error(error);
       }
   }
+
     //creo funcion para pedir todastarea
     const getAllTasks = async () => {
       try {
         //peticion al back
         const res = await getAllTaskRequest();
         //devuelvo laos datos de la tarea
+        console.log(res.data)
         setAllTasks(res.data);
         return res.data;
       } catch (error) {
@@ -90,8 +95,8 @@ export function TaskProvider({ children }) {
       //peticion al back
       const res = await getAllUsersRequest();
       //devuelvo laos datos de la tarea
-      setAllUsers(res.data);
       console.log(res.data)
+      setAllUsers(res.data);
       return res.data;
     } catch (error) {
       //muestro error en caso que tenga

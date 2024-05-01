@@ -15,11 +15,11 @@ export const useUser = () => {
 
 //creo y exporto el provider para las tareas
 export function UserProvider({ children }) {
-  const [user, setUser] = useState([]);
+  // const [user, setUser] = useState([]);
   const [users, setAllUsers] = useState([]);
 
   //creo funcon para pedir tareas
-  const [triggerUpdateUsers, setTriggerUpdateUsers] = useState(false);
+
 
   const getAllUsers = async () => {
     try {
@@ -38,11 +38,15 @@ export function UserProvider({ children }) {
     try {
       //peticion al back
       const res = await deleteUserRequest(id);
+      console.log(res)
       //si falla decuelvo el estado 204
-      console.log(user)
+      // console.log(user)
       console.log(id)
-      if (res.status === 204) setUser(user.filter((user) => user._id !== id));
-      setTriggerUpdateUsers(!triggerUpdateUsers);
+      // esto tiene pinta de estar mal
+      // if (res.status === 204) setUser(user.filter((user) => user._id !== id));
+      if (res.status === 204) setAllUsers((prevAllUsers) => prevAllUsers.filter((user) => user._id !== id));
+
+
     } catch (error) {
       //muestro error en caso que tenga
       console.log(error);
@@ -53,7 +57,6 @@ export function UserProvider({ children }) {
     <UserContext.Provider
       value={{
         getAllUsers,
-        triggerUpdateUsers,
         users,
         deleteUser,
       }}
