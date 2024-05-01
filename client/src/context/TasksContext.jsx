@@ -1,6 +1,6 @@
 //importo react y sus propiedades y mis metodos desde api/task que es donde hare las peticiones
 import { createContext, useContext, useState } from "react";
-import { createTaskRequest, getTasksRequest, deleteTaskRequest, getTaskRequest, updateTaskRequest } from "../api/task";
+import { createTaskRequest, getTasksRequest, deleteTaskRequest, getTaskRequest, updateTaskRequest, getAllTaskRequest } from "../api/task";
 
 //creo el contexto de las tareas
 const TaskContext = createContext();
@@ -13,11 +13,15 @@ export const useTasks = () => {
     //devuelvo el contexto
     return context;
   };
+  
 
 //creo y exporto el provider para las tareas
 export function TaskProvider({ children }) {
 
   const [tasks, setTasks] = useState([]);
+  const [alltasks, setAllTasks] = useState([]);
+  
+
   //creo funcon para pedir tareas
   const [triggerUpdate, setTriggerUpdate] = useState(false);
   const getTasks = async () => {
@@ -65,6 +69,19 @@ export function TaskProvider({ children }) {
         console.error(error);
       }
   }
+    //creo funcion para pedir todastarea
+    const getAllTasks = async () => {
+      try {
+        //peticion al back
+        const res = await getAllTaskRequest();
+        //devuelvo laos datos de la tarea
+        setAllTasks(res.data);
+        return res.data;
+      } catch (error) {
+        //muestro error en caso que tenga
+        console.error(error);
+      }
+  }
   //creo funcion para updatear tarea
   const updateTask = async (id, task) => {
       try {
@@ -87,7 +104,9 @@ export function TaskProvider({ children }) {
             deleteTask,
             getTask,
             updateTask,
-            triggerUpdate
+            getAllTasks,
+            triggerUpdate,
+            alltasks,
         }}
     >
         {children}

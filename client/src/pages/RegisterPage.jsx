@@ -30,7 +30,8 @@ function RegisterPage() {
      })
      //si se logea correctamente dirije directamente a las tareas para no tener que pasar otra vez por el login
      useEffect(() => {
-        if (isAuthenticated) navigate("/tasks")
+        
+        if (isAuthenticated ) navigate("/tasks")
     }, [isAuthenticated])
 
     //el formulario para el registro 

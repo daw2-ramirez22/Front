@@ -11,6 +11,7 @@ import ProfilePage from "./pages/ProfilePage.jsx";
 import HomePage from "./pages/HomePage.jsx";
 import ProtectedRoute from "./ProtectedRoute.jsx";
 import Navbar from "./components/Navbar.jsx";
+import AdminPage from "./pages/AdminPage.jsx";
 
 //creo la funcion App para que cree las rutas desde el front que he creado en las paginas dentro de client/pages
 function App() {
@@ -30,6 +31,7 @@ function App() {
                                     <Route path="/add-task" element={<TaskFormPage></TaskFormPage>}></Route>
                                     <Route path="/task/:id" element={<TaskFormPage></TaskFormPage>}></Route>
                                     <Route path="/profile" element={<ProfilePage></ProfilePage>}></Route>
+                                    <Route path="/admin" element={<AdminPage></AdminPage>}></Route>
                                 </Route>
                             </Routes>
                     </main>

@@ -85,27 +85,29 @@ export const AuthProvider = ({ children }) => {
   //creo un effect para logear y chekear la cookie
   useEffect(() => {
     const checkLogin = async () => {
-      try {
-        const res = await vertyTokenRequet();
-        if (!res.data) {
-          setLoading(false);
-          setIsAuthenticated(false);
-          return;
-        }
-        setIsAuthenticated(true);
-        setUser(res.data);
-        setLoading(false);
-      } catch (error) {
-        setIsAuthenticated(false);
-        setUser(null);
-        setLoading(false);
-      }
+ 
+      try 
+      { 
+        const res = await vertyTokenRequet(); 
+        if (!res.data){ 
+          setLoading(false) 
+          setIsAuthenticated(false) 
+          return 
+        } 
+        setIsAuthenticated(true) 
+        setUser(res.data) 
+        setLoading(false) 
+      } catch (error) { 
+        setIsAuthenticated(false) 
+        setUser(null) 
+        setLoading(false) 
+      } 
     };
     checkLogin();
   }, []);
 
   //creo funcion asincrona para deslogearme
-  const logout = async () => {
+  const logout = async() => {
     try {
       //elimino el token
       Cookies.remove("token");
@@ -115,6 +117,7 @@ export const AuthProvider = ({ children }) => {
       setIsAuthenticated(false);
       //seteo el usuario a null
       setUser(null);
+
     } catch (error) {
       //seteo los errores
       setErrors([error.response.data.message]);
