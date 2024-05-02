@@ -103,9 +103,7 @@ export function TaskProvider({ children }) {
       const res = await getAllUsersRequest();
       //devuelvo laos datos de la tarea
       setAllUsers(res.data);
-      //devuelvo el nuevo estado de las tareas
-      if (res.status === 204) setAllTasks((prevAlltask) => prevAlltask.filter((task) => task._id !== id));
-      if (res.status === 204) setTasks((prevAlltask) => prevAlltask.filter((task) => task._id !== id));
+
       return res.data;
     } catch (error) {
       //muestro error en caso que tenga
@@ -119,6 +117,9 @@ export function TaskProvider({ children }) {
     try {
       //peticion al back
       await updateTaskRequest(id, task);
+      //devuelvo el nuevo estado de las tareas
+      if (res.status === 204) setAllTasks((prevAlltask) => prevAlltask.filter((task) => task._id !== id));
+      if (res.status === 204) setTasks((prevAlltask) => prevAlltask.filter((task) => task._id !== id));
     } catch (error) {
       //muestro error en caso que tenga
       console.error(error);
