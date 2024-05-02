@@ -3,7 +3,7 @@ import { createContext, useContext, useState } from "react";
 import { createTaskRequest, getTasksRequest, deleteTaskRequest, getTaskRequest, updateTaskRequest, getAllTaskRequest } from "../api/task";
 import { getAllUsersRequest } from "../api/users";
 
-//creo el contexto de las tareas
+//creo el contexto de las tareas ✅
 const TaskContext = createContext();
 
 export const useTasks = () => {
@@ -16,7 +16,7 @@ export const useTasks = () => {
   };
   
 
-//creo y exporto el provider para las tareas
+//creo y exporto el provider para las tareas ✅
 export function TaskProvider({ children }) {
 
 
@@ -28,7 +28,7 @@ export function TaskProvider({ children }) {
 
   
 
-  //creo funcon para pedir tareas
+  //creo funcon para pedir tareas ✅
   const getTasks = async () => {
       //pericion al baxk
       const res = await getTasksRequest();
@@ -37,7 +37,7 @@ export function TaskProvider({ children }) {
       
     };
       
-  //creo funcion para crear tareas   
+  //creo funcion para crear tareas ✅
   const createTask = async (task) => {
       try {
           //peticion al baxk
@@ -50,7 +50,7 @@ export function TaskProvider({ children }) {
           console.log(error);
       }
   }
-  //creo funcion para borrar tareas
+  //creo funcion para borrar tareas✅
   const deleteTask = async (id) => {
       try {
          //peticion al back
@@ -82,7 +82,7 @@ export function TaskProvider({ children }) {
       }
   }
 
-    //creo funcion para pedir todastarea
+    //creo funcion para pedir todastarea✅
     const getAllTasks = async () => {
       try {
         //peticion al back
@@ -97,18 +97,6 @@ export function TaskProvider({ children }) {
         console.error(error);
       }
   }
-  const getAllUsers = async () => {
-    try {
-      //peticion al back
-      const res = await getAllUsersRequest();
-      //devuelvo laos datos de la tarea
-      setAllUsers(res.data);
-      return res.data;
-    } catch (error) {
-      //muestro error en caso que tenga
-      console.error(error);
-    }
-}
 
 
   //creo funcion para updatear tarea
@@ -116,6 +104,8 @@ export function TaskProvider({ children }) {
       try {
         //peticion al back
         await updateTaskRequest(id, task);
+        if (res.status === 204) setTasks((prevAlltask) => prevAlltask.filter((task) => task._id !== id));
+        if (res.status === 204) setAllTasks((prevAlltask) => prevAlltask.filter((task) => task._id !== id));
       } catch (error) {
         //muestro error en caso que tenga
         console.error(error);
