@@ -20,7 +20,7 @@ export function UserProvider({ children }) {
 
   //creo funcon para pedir tareas
 
-
+//get
   const getAllUsers = async () => {
     try {
       //peticion al back
@@ -33,6 +33,7 @@ export function UserProvider({ children }) {
       console.error(error);
     }
   };
+
   //creo funcion para borrar tareas
   const deleteUser = async (id) => {
     try {
