@@ -112,6 +112,9 @@ export function TaskProvider({ children }) {
       try {
         //peticion al back
         await updateTaskRequest(id, task);
+        //vuelvo a devolver al lista de tareass despues de updatear
+        if (res.status === 204) setAllTasks((prevAlltask) => prevAlltask.filter((task) => task._id !== id));
+        if (res.status === 204) setTasks((prevAlltask) => prevAlltask.filter((task) => task._id !== id));
       } catch (error) {
         //muestro error en caso que tenga
         console.error(error);

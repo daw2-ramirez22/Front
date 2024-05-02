@@ -19,7 +19,7 @@ function AdminPage() {
   useEffect(() => {
     //si no esta autenticado y esta cargando mandalo al login de vuelta
     if (user.role === "user") {
-      navigate("/", { replace: true });
+      navigate("/tasks", { replace: true });
     }
     getAllTasks();
     getAllUsers();
